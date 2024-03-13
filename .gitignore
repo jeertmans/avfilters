@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+dist/
+*.egg-info/
+
+# Tests
+tests/assets
+
+# Sphinx documentation
+docs/build/
+
+# Environment
+.pdf-python

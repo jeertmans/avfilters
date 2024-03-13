@@ -1,0 +1,74 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=61", "wheel"]
+
+[project]
+authors = [
+  {name = "Jérome Eertmans", email = "jeertmans@icloud.com"},
+]
+classifiers = [
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: POSIX",
+  "Operating System :: Unix",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Cython",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Multimedia :: Sound/Audio",
+  "Topic :: Multimedia :: Sound/Audio :: Conversion",
+  "Topic :: Multimedia :: Video",
+  "Topic :: Multimedia :: Video :: Conversion",
+]
+dependencies = [
+  "av>=9.0.0",
+]
+description = "Common Audio and Video filters"
+keywords = ["libav", "ffmpeg", "audio", "video", "filters"]
+license = {text = "MIT"}
+name = "avfilters"
+readme = "README.md"
+requires-python = ">=3.6,<3.13"
+version = "0.1.0"
+
+[project.optional-dependencies]
+docs = [
+  "sphinx>=7",
+]
+
+[project.urls]
+Changelog = "https://github.com/jeertmans/avfilters/releases"
+Documentation = "https://eertmans.be/avfilters"
+Founding = "https://github.com/sponsors/jeertmans"
+Homepage = "https://github.com/jeertmans/avfilters"
+Repository = "https://github.com/jeertmans/avfilters"
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "raise NotImplementedError",
+  "if TYPE_CHECKING:",
+  "if typing.TYPE_CHECKING:",
+]
+precision = 2
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+extend-select = ["B", "C90", "D", "I", "N", "RUF", "UP", "T"]
+isort = {known-first-party = ["avfilters", "tests"]}
+
+[tool.ruff.lint.per-file-ignores]
+"**/{tests,docs}/*" = ["D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
