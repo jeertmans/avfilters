@@ -12,4 +12,4 @@ tests/assets
 docs/build/
 
 # Environment
-.pdf-python
+.pdm-python
