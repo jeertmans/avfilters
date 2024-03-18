@@ -1,5 +1,6 @@
 import subprocess
 import tempfile
+from typing import List
 
 import pytest
 
@@ -18,7 +19,7 @@ from .utils import equal_videos, random_video
         ([1 for i in range(10)], 1),
     ),
 )
-def test_concatenate(format_: str, durations: list[float], seed: int) -> None:
+def test_concatenate(format_: str, durations: List[float], seed: int) -> None:
     video_files = [
         random_video(
             seed if seed > 0 else i, duration=duration, format_=format_

@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from fractions import Fraction
+from typing import List
 
 import av
 
@@ -59,6 +60,6 @@ class Stream:
         )
 
 
-def probe(file: str) -> list[Stream]:
+def probe(file: str) -> List[Stream]:
     with av.open(file) as container:
         return [Stream.from_av_stream(stream) for stream in container.streams]

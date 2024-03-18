@@ -1,6 +1,7 @@
 import hashlib
 import logging
 import subprocess
+from itertools import zip_longest
 from pathlib import Path
 
 import av
@@ -74,18 +75,17 @@ def random_video(
 
 def equal_videos(video_1: str, video_2: str) -> bool:
     with av.open(video_1) as container_1, av.open(video_2) as container_2:
-        try:
-            for frame_1, frame_2 in zip(
-                container_1.decode(video=0), container_2.decode(video=0), strict=True
-            ):
-                array_1 = frame_1.to_ndarray()
-                array_2 = frame_2.to_ndarray()
-                if not np.array_equal(array_1, array_2):
-                    logger.info("Video frames are not equal.")
-                    return False
+        for frame_1, frame_2 in zip_longest(
+            container_1.decode(video=0), container_2.decode(video=0)
+        ):
+            if frame_1 is None or frame_2 is None:
+                logger.info("Videos do not have the same number of frames.")
+                return False
 
-        except ValueError:
-            logger.info("Videos do not have the same number of frames.")
-            return False
+            array_1 = frame_1.to_ndarray()
+            array_2 = frame_2.to_ndarray()
+            if not np.array_equal(array_1, array_2):
+                logger.info("Video frames are not equal.")
+                return False
 
     return True
