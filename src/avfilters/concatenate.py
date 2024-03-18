@@ -5,9 +5,9 @@ import av
 
 
 def concatenate(files: Sequence[str], dest: str) -> None:
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt") as f:
+    with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
         f.writelines(f"file '{file}'\n" for file in files)
-        f.flush()
+        f.close()
 
         input_container = av.open(f.name, format="concat", options={"safe": "0"})
         input_stream = input_container.streams.video[0]

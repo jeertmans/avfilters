@@ -29,12 +29,12 @@ def test_concatenate(format_: str, durations: List[float], seed: int) -> None:
 
     with tempfile.NamedTemporaryFile(
         delete=False, suffix=".mp4"
-    ) as got, tempfile.NamedTemporaryFile(suffix=".mp4") as expected:
+    ) as got, tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as expected:
         concatenate(video_files, got.name)
 
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt") as f:
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
             f.writelines(f"file '{file}'\n" for file in video_files)
-            f.flush()
+            f.close()
             subprocess.run(
                 [
                     "ffmpeg",
