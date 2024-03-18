@@ -13,3 +13,5 @@ docs/build/
 
 # Environment
 .pdm-python
+
+tests/media/

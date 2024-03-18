@@ -1,0 +1,47 @@
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+  workflow_dispatch:
+
+name: Tests
+
+jobs:
+  pytest:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        pyversion: ['3.8', '3.9', '3.10', '3.11', '3.12']
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install PDM
+      uses: pdm-project/setup-pdm@v4
+      with:
+        python-version: ${{ matrix.pyversion }}
+        cache: true
+
+    - name: Install manim dependencies on MacOS
+      if: matrix.os == 'macos-latest'
+      run: brew install ffmpeg
+
+    - name: Install manim dependencies on Ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install ffmpeg
+
+    - name: Install Windows dependencies
+      if: matrix.os == 'windows-latest'
+      run: choco install ffmpeg
+
+    - name: Install Manim Slides
+      run: |
+        pdm sync -Gtest
+
+    - name: Run pytest
+      run: pdm run pytest
