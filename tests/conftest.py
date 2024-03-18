@@ -1,6 +1,7 @@
 import sys
 
 import pytest
+import tempfile
 
 from functools import partial
 
@@ -8,6 +9,7 @@ from functools import partial
 @pytest.fixture(autouse=True)
 def patch_named_temporary_file(monkeypatch: pytest.MonkeyPatch) -> None:
     if sys.platform == "win32":
-        from tempfile import NamedTemporaryFile
+        # https://github.com/pypa/pip-audit/issues/646
+        original = tempfile.NamedTemporaryFile
 
-        monkeypatch.setattr("tempfile", "NamedTemporaryFile", partial(NamedTemporaryFile, delete=False))
+        monkeypatch.setattr(tempfile, "NamedTemporaryFile", partial(original, delete=False))
