@@ -19,11 +19,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install PDM
-      uses: pdm-project/setup-pdm@v4
+    - name: Install Python
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.pyversion }}
-        cache: true
+        cache: 'pip'
+        cache-dependency-path: 'pyproject.toml'
 
     - name: Install manim dependencies on MacOS
       if: matrix.os == 'macos-latest'
@@ -39,9 +40,9 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: choco install ffmpeg
 
-    - name: Install Manim Slides
+    - name: Install project
       run: |
-        pdm sync -Gtest
+        pip install '.[test]'
 
     - name: Run pytest
-      run: pdm run pytest
+      run: pytest
