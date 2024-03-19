@@ -1,5 +1,4 @@
 import hashlib
-import logging
 import subprocess
 from itertools import zip_longest
 from pathlib import Path
@@ -8,9 +7,9 @@ import av
 import cv2
 import numpy as np
 
-MEDIA_FOLDER = Path(__file__).parent / "media"
+from avfilters import probe
 
-logger = logging.getLogger(__name__)
+MEDIA_FOLDER = Path(__file__).parent / "media"
 
 
 def random_video(
@@ -31,7 +30,6 @@ def random_video(
     filename = filename_mp4.with_suffix(format_)
 
     if filename.exists() and cached:
-        logger.info("Random video already exists, skipping.")
         return filename
 
     if not MEDIA_FOLDER.exists():
@@ -40,7 +38,6 @@ def random_video(
     size = (height, width, 3) if color else (height, width)
 
     if not filename_mp4.exists():
-        logger.info("Generating random (MP4) video file.")
         output = cv2.VideoWriter(
             str(filename_mp4),
             cv2.VideoWriter_fourcc(*"mp4v"),
@@ -58,7 +55,6 @@ def random_video(
         output.release()
 
     if filename.suffix != filename_mp4.suffix and (not filename.exists() or not cached):
-        logger.info(f"Converting video file to specified format: {format_}.")
         process = subprocess.Popen(
             ["ffmpeg", "-i", str(filename_mp4), str(filename)], stdout=subprocess.PIPE
         )
@@ -73,19 +69,21 @@ def random_video(
     return filename
 
 
-def equal_videos(video_1: str, video_2: str) -> bool:
+def assert_equal_videos(video_1: str, video_2: str) -> None:
+    info_1 = probe(video_1)
+    info_2 = probe(video_2)
+
+    for stream_1, stream_2 in zip_longest(info_1, info_2):
+        assert (stream_1 is None) == (stream_2 is None)
+        # TODO: actually test that some informations are similar
+        # assert asdict(stream_1) == asdict(stream_2)
+
     with av.open(video_1) as container_1, av.open(video_2) as container_2:
         for frame_1, frame_2 in zip_longest(
             container_1.decode(video=0), container_2.decode(video=0)
         ):
-            if frame_1 is None or frame_2 is None:
-                logger.info("Videos do not have the same number of frames.")
-                return False
+            assert (frame_1 is None) == (frame_2 is None)
 
             array_1 = frame_1.to_ndarray()
             array_2 = frame_2.to_ndarray()
-            if not np.array_equal(array_1, array_2):
-                logger.info("Video frames are not equal.")
-                return False
-
-    return True
+            np.testing.assert_array_equal(array_1, array_2)

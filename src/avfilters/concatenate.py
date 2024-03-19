@@ -1,10 +1,11 @@
 import tempfile
-from typing import Sequence
+from typing import Iterator
 
 import av
 
 
-def concatenate(files: Sequence[str], dest: str) -> None:
+def concatenate(files: Iterator[str], dest: str) -> None:
+    """Concatenate a sequence of media into a single media."""
     with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
         f.writelines(f"file '{file}'\n" for file in files)
         f.close()

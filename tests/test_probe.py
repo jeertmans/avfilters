@@ -1,6 +1,6 @@
 import pytest
 
-from avfilters.probe import probe
+from avfilters import probe
 
 from .utils import random_video
 
