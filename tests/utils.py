@@ -75,8 +75,10 @@ def assert_equal_videos(video_1: str, video_2: str) -> None:
 
     for stream_1, stream_2 in zip_longest(info_1, info_2):
         assert (stream_1 is None) == (stream_2 is None)
-        # TODO: actually test that some informations are similar
-        # assert asdict(stream_1) == asdict(stream_2)
+        assert (
+            stream_1.duration * stream_1.time_base
+            == stream_2.duration * stream_2.time_base
+        )
 
     with av.open(video_1) as container_1, av.open(video_2) as container_2:
         for frame_1, frame_2 in zip_longest(

@@ -56,11 +56,16 @@ def test_concatenate(format_: str, durations: Iterator[float], seed: int) -> Non
         concatenate(video_files, got.name)
         ffmpeg_concatenate(video_files, expected.name)
 
+        stream = probe(got.name)[0]
+
+        assert stream.duration * stream.time_base == sum(durations)
+
         assert_equal_videos(got.name, expected.name)
 
 
 def test_issue_manim_slides_390(issues_folder: Path):
     folder = issues_folder.joinpath("manim-slides-390")
+    expected = folder.joinpath("expected.mp4")
 
     video_files = [folder.joinpath(f"{i}.mp4") for i in range(5)]
 
@@ -70,6 +75,4 @@ def test_issue_manim_slides_390(issues_folder: Path):
         info = probe(got.name)
         assert len(info) == 1
 
-        stream = info[0]
-
-        assert stream.duration == 1
+        assert_equal_videos(got.name, str(expected))
