@@ -15,8 +15,6 @@ classifiers = [
   "Operating System :: Unix",
   "Operating System :: Microsoft :: Windows",
   "Programming Language :: Cython",
-  "Programming Language :: Python :: 3.6",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -24,7 +22,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Topic :: Multimedia :: Sound/Audio",
-  "Topic :: Multimedia :: Sound/Audio :: Conversion",
+  "Topic :: Multimedia :: Sound/Audio :: Conuersion",
   "Topic :: Multimedia :: Video",
   "Topic :: Multimedia :: Video :: Conversion",
 ]
@@ -36,12 +34,23 @@ keywords = ["libav", "ffmpeg", "audio", "video", "filters"]
 license = {text = "MIT"}
 name = "avfilters"
 readme = "README.md"
-requires-python = ">=3.6,<3.13"
+requires-python = ">=3.8"
 version = "0.1.0"
 
 [project.optional-dependencies]
+dev = [
+  "pre-commit>=3.5.0",
+]
 docs = [
   "sphinx>=7",
+]
+test = [
+  "numpy>=1.24.4",
+  "opencv-python>=4.8.1.78",
+  "pytest>=8.1.1",
+  "pytest-env>=1.1.3",
+  "pytest-cov>=4.1.0",
+  "pytest-xdist>=3.5.0",
 ]
 
 [project.urls]
@@ -59,6 +68,14 @@ exclude_lines = [
   "if typing.TYPE_CHECKING:",
 ]
 precision = 2
+
+[tool.pyright]
+include = ["src/avfilters", "tests"]
+venv = ".venv"
+venvPath = "."
+
+[tool.ruff]
+target-version = "py38"
 
 [tool.ruff.format]
 docstring-code-format = true
