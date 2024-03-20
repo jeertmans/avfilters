@@ -13,23 +13,24 @@ from .utils import assert_equal_videos, random_video
 def ffmpeg_concatenate(files: Iterator[str], dest: str) -> None:
     with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
         f.writelines(f"file '{file}'\n" for file in files)
-        f.close()
-        subprocess.run(
-            [
-                "ffmpeg",
-                "-f",
-                "concat",
-                "-safe",
-                "0",
-                "-i",
-                f.name,
-                "-c",
-                "copy",
-                dest,
-                "-y",
-            ],
-            check=True,
-        )
+        list_filename = f.name
+
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-f",
+            "concat",
+            "-safe",
+            "0",
+            "-i",
+            list_filename,
+            "-c",
+            "copy",
+            dest,
+            "-y",
+        ],
+        check=True,
+    )
 
 
 @pytest.mark.parametrize("format_", (".mp4", ".avi", ".mov"))
@@ -70,7 +71,7 @@ def test_issue_manim_slides_390(issues_folder: Path):
     video_files = [folder.joinpath(f"{i}.mp4") for i in range(5)]
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as got:
-        concatenate(video_files, got.name)
+        ffmpeg_concatenate(video_files, got.name)
 
         info = probe(got.name)
         assert len(info) == 1
