@@ -71,7 +71,7 @@ def test_issue_manim_slides_390(issues_folder: Path):
     video_files = [folder.joinpath(f"{i}.mp4") for i in range(5)]
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as got:
-        ffmpeg_concatenate(video_files, got.name)
+        concatenate(video_files, got.name)
 
         info = probe(got.name)
         assert len(info) == 1

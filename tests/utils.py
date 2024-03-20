@@ -6,6 +6,7 @@ from pathlib import Path
 import av
 import cv2
 import numpy as np
+import pytest
 
 from avfilters import probe
 
@@ -89,3 +90,8 @@ def assert_equal_videos(video_1: str, video_2: str) -> None:
             array_1 = frame_1.to_ndarray()
             array_2 = frame_2.to_ndarray()
             np.testing.assert_array_equal(array_1, array_2)
+
+
+def assert_not_equal_videos(video_1: str, video_2: str) -> None:
+    with pytest.raises(AssertionError):
+        assert_equal_videos(video_1, video_2)
