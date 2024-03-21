@@ -52,7 +52,6 @@ test = [
   "numpy>=1.24.4",
   "pytest>=8.1.1",
   "pytest-cov>=4.1.0",
-  "pytest-xdist>=3.5.0",
 ]
 
 [project.urls]
@@ -82,7 +81,6 @@ addopts = [
   "--doctest-ignore-import-errors",
   "--doctest-glob=*.md",
   "--doctest-glob=*.rst",
-  "-n=auto",
 ]
 
 [tool.ruff]

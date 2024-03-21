@@ -5,7 +5,7 @@
 groups = ["default", "test", "dev", "docs"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:53384005edec687d1eb69a3255e88ccc677578ee848f6faed0f5cc3c0727cbc0"
+content_hash = "sha256:f668f02d399a6b52352b6581dd03e08f47646f36c9789ae4adcc1e2892f5a4c6"
 
 [[package]]
 name = "accessible-pygments"
@@ -394,17 +394,6 @@ files = [
 ]
 
 [[package]]
-name = "execnet"
-version = "2.0.2"
-requires_python = ">=3.7"
-summary = "execnet: rapid multi-Python deployment"
-groups = ["test"]
-files = [
-    {file = "execnet-2.0.2-py3-none-any.whl", hash = "sha256:88256416ae766bc9e8895c76a87928c0012183da3cc4fc18016e6f050e025f41"},
-    {file = "execnet-2.0.2.tar.gz", hash = "sha256:cc59bc4423742fd71ad227122eb0dd44db51efb3dc4095b45ac9a08c770096af"},
-]
-
-[[package]]
 name = "filelock"
 version = "3.13.1"
 requires_python = ">=3.8"
@@ -714,21 +703,6 @@ dependencies = [
 files = [
     {file = "pytest-cov-4.1.0.tar.gz", hash = "sha256:3904b13dfbfec47f003b8e77fd5b589cd11904a21ddf1ab38a64f204d6a10ef6"},
     {file = "pytest_cov-4.1.0-py3-none-any.whl", hash = "sha256:6ba70b9e97e69fcc3fb45bfeab2d0a138fb65c4d0d6a41ef33983ad114be8c3a"},
-]
-
-[[package]]
-name = "pytest-xdist"
-version = "3.5.0"
-requires_python = ">=3.7"
-summary = "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
-groups = ["test"]
-dependencies = [
-    "execnet>=1.1",
-    "pytest>=6.2.0",
-]
-files = [
-    {file = "pytest-xdist-3.5.0.tar.gz", hash = "sha256:cbb36f3d67e0c478baa57fa4edc8843887e0f6cfc42d677530a36d7472b32d8a"},
-    {file = "pytest_xdist-3.5.0-py3-none-any.whl", hash = "sha256:d075629c7e00b611df89f490a5063944bee7a4362a5ff11c7cc7824a03dfce24"},
 ]
 
 [[package]]
