@@ -34,7 +34,7 @@ def random_video(
         return filename
 
     if not MEDIA_FOLDER.exists():
-        MEDIA_FOLDER.mkdir()
+        MEDIA_FOLDER.mkdir(exist_ok=True)
 
     size = (height, width, 3) if color else (height, width)
 

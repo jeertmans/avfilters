@@ -55,15 +55,6 @@ test = [
   "pytest-xdist>=3.5.0",
 ]
 
-[tool.pytest.ini_options]
-addopts = [
-  "--doctest-modules",
-  "--doctest-ignore-import-errors",
-  "--doctest-glob=*.md",
-  "--doctest-glob=*.rst",
-  "-n=auto",
-]
-
 [project.urls]
 Changelog = "https://github.com/jeertmans/avfilters/releases"
 Documentation = "https://eertmans.be/avfilters"
@@ -84,6 +75,15 @@ precision = 2
 include = ["src/avfilters", "tests"]
 venv = ".venv"
 venvPath = "."
+
+[tool.pytest.ini_options]
+addopts = [
+  "--doctest-modules",
+  "--doctest-ignore-import-errors",
+  "--doctest-glob=*.md",
+  "--doctest-glob=*.rst",
+  "-n=auto",
+]
 
 [tool.ruff]
 target-version = "py38"

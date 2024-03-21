@@ -5,7 +5,7 @@ This module is currently work in progress.
 
 from dataclasses import dataclass
 from fractions import Fraction
-from typing import Iterator, List
+from typing import Iterable, Iterator, List
 
 import av
 
@@ -203,7 +203,7 @@ def inspect(file: str) -> Container:
     return Container.from_file(file)
 
 
-def filter_out_no_stream(files: Iterator[str]) -> Iterator[str]:
+def filter_out_no_stream(files: Iterable[str]) -> Iterator[str]:
     """Return a iterator that excludes files with no stream.
 
     Args:
