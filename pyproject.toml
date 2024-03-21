@@ -30,12 +30,12 @@ dependencies = [
   "av>=9.0.0",
 ]
 description = "Common Audio and Video filters"
+dynamic = ["version"]
 keywords = ["libav", "ffmpeg", "audio", "video", "filters"]
 license = {text = "MIT"}
 name = "avfilters"
 readme = "README.md"
 requires-python = ">=3.8"
-version = "0.1.0"
 
 [project.optional-dependencies]
 dev = [
