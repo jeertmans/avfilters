@@ -1,7 +1,7 @@
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import Iterator
+from typing import Iterable
 
 import pytest
 
@@ -10,12 +10,12 @@ from avfilters import concatenate, probe
 from .utils import assert_equal_videos, random_video
 
 
-def ffmpeg_concatenate(files: Iterator[str], dest: str) -> None:
+def ffmpeg_concatenate(files: Iterable[str], dst: str) -> None:
     with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
         f.writelines(f"file '{file}'\n" for file in files)
         list_filename = f.name
 
-    subprocess.run(
+    subprocess.check_call(
         [
             "ffmpeg",
             "-f",
@@ -26,10 +26,9 @@ def ffmpeg_concatenate(files: Iterator[str], dest: str) -> None:
             list_filename,
             "-c",
             "copy",
-            dest,
+            dst,
             "-y",
         ],
-        check=True,
     )
 
 
@@ -43,7 +42,7 @@ def ffmpeg_concatenate(files: Iterator[str], dest: str) -> None:
         ([1 for i in range(10)], 1),
     ),
 )
-def test_concatenate(format_: str, durations: Iterator[float], seed: int) -> None:
+def test_concatenate(format_: str, durations: Iterable[float], seed: int) -> None:
     video_files = [
         random_video(
             seed if seed > 0 else i, duration=duration, format_=format_

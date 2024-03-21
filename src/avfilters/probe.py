@@ -59,6 +59,15 @@ class Stream:
             type=stream.type,
         )
 
+    @property
+    def duration_seconds(self) -> float:
+        """Return the duration of this stream in seconds.
+
+        Return:
+            The duration of this stream in seconds.
+        """
+        return float(self.duration * self.time_base)
+
 
 def probe(file: str) -> List[Stream]:
     with av.open(file) as container:
