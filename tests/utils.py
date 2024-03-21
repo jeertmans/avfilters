@@ -25,6 +25,7 @@ def random_video(
     fun: Optional[Callable[[int, Tuple[int, ...]], np.ndarray]] = None,
     cached: bool = True,
 ) -> Path:
+    # TODO: add audio generation
     args = (seed, width, height, duration, fps, audio, color)
     basename = hashlib.sha256(repr(args).encode()).hexdigest()
     filename = MEDIA_FOLDER.joinpath(basename + format_)
@@ -73,8 +74,6 @@ def assert_equal_videos(video_1: str, video_2: str, **kwargs: Any) -> None:
 
     for stream_1, stream_2 in zip_longest(container_1, container_2):
         assert (stream_1 is None) == (stream_2 is None)
-        print(f"{stream_1.duration_seconds = } {stream_2.duration_seconds = }")
-
         assert stream_1.duration_seconds == stream_2.duration_seconds
 
     del container_1, container_2

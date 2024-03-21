@@ -6,6 +6,12 @@ import av
 def reverse(src: str, dst: str) -> None:
     """Reverse a media.
 
+    Roughly equivalent to:
+
+    .. code-block:: bash
+
+       ffmpeg -i src -vf reverse -af areverse dst
+
     Args:
         src: The path to the source file.
             The file must exist and be a valid media.
@@ -13,6 +19,8 @@ def reverse(src: str, dst: str) -> None:
             Any existing file will be overwritten.
     """
     with av.open(src) as input_container, av.open(dst, mode="w") as output_container:
+        # TODO: check if (1) we can have multiple video streams, (2) if this works with
+        # audio, and (3) we need to skip subtitle streams
         for input_stream in input_container.streams:
             output_stream = output_container.add_stream(
                 input_stream.codec_context.name,
