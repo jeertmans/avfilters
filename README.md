@@ -68,8 +68,8 @@ Please use the
 [pypi-version-badge]: https://img.shields.io/pypi/v/avfilters?label=avfilters&color=blueviolet
 [pypi-version-url]: https://pypi.org/project/avfilters/
 [pypi-python-version-badge]: https://img.shields.io/pypi/pyversions/avfilters?color=orange
-[documentation-badge]: https://readthedocs.org/projects/differt/badge/?version=latest
-[documentation-url]: https://differt.readthedocs.io/latest/?badge=latest
+[documentation-badge]: https://readthedocs.org/projects/avfilters/badge/?version=latest
+[documentation-url]: https://avfilters.readthedocs.io/latest/?badge=latest
 [codecov-badge]: https://codecov.io/gh/jeertmans/avfilters/branch/main/graph/badge.svg?token=8P4DY9JCE4
 [codecov-url]: https://codecov.io/gh/jeertmans/avfilters
 [pdm-badge]: https://img.shields.io/badge/pdm-managed-blueviolet
