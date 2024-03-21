@@ -26,11 +26,11 @@ jobs:
         cache: pip
         cache-dependency-path: pyproject.toml
 
-    - name: Install manim dependencies on MacOS
+    - name: Install macOS dependencies
       if: matrix.os == 'macos-latest'
       run: brew install ffmpeg
 
-    - name: Install manim dependencies on Ubuntu
+    - name: Install Ubuntu dependencies
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
@@ -45,4 +45,15 @@ jobs:
         pip install '.[test]'
 
     - name: Run pytest
+      if: matrix.os != 'ubuntu-latest' || matrix.pyversion != '3.12'
       run: pytest
+
+    - name: Run pytest
+      if: matrix.os == 'ubuntu-latest' && matrix.pyversion == '3.12'
+      run: pytest --cov-report xml --cov=avfilters tests/
+
+    - name: Upload to codecov.io
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: jeertmans/avfilters
