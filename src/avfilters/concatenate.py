@@ -1,3 +1,5 @@
+"""Multimedia files concatenation utilities."""
+
 import tempfile
 from typing import Iterable
 
@@ -8,7 +10,10 @@ def concatenate(files: Iterable[str], dst: str) -> None:
     """Concatenate multiple media into a single media.
 
     Args:
-        src: TODO.
+        src: The files that should be concatenated.
+
+            All files must have the same streams
+            (same codecs, same time base, etc.)
         dst: The path to the destination file.
             Any existing file will be overwritten.
     """

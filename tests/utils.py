@@ -7,7 +7,7 @@ import av
 import numpy as np
 import pytest
 
-from avfilters import probe
+from avfilters import inspect
 
 MEDIA_FOLDER = Path(__file__).parent / "media"
 
@@ -68,12 +68,16 @@ def random_video(
 
 
 def assert_equal_videos(video_1: str, video_2: str, **kwargs: Any) -> None:
-    info_1 = probe(video_1)
-    info_2 = probe(video_2)
+    container_1 = inspect(video_1)
+    container_2 = inspect(video_2)
 
-    for stream_1, stream_2 in zip_longest(info_1, info_2):
+    for stream_1, stream_2 in zip_longest(container_1, container_2):
         assert (stream_1 is None) == (stream_2 is None)
+        print(f"{stream_1.duration_seconds = } {stream_2.duration_seconds = }")
+
         assert stream_1.duration_seconds == stream_2.duration_seconds
+
+    del container_1, container_2
 
     with av.open(video_1) as container_1, av.open(video_2) as container_2:
         for frame_1, frame_2 in zip_longest(

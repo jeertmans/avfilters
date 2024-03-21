@@ -1,3 +1,5 @@
+"""Multimedia files reversing utilities."""
+
 import av
 
 

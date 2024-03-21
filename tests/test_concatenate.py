@@ -5,7 +5,8 @@ from typing import Iterable
 
 import pytest
 
-from avfilters import concatenate, probe
+from avfilters import concatenate, inspect
+from avfilters.inspect import filter_out_no_stream
 
 from .utils import assert_equal_videos, random_video
 
@@ -56,7 +57,7 @@ def test_concatenate(format_: str, durations: Iterable[float], seed: int) -> Non
         concatenate(video_files, got.name)
         ffmpeg_concatenate(video_files, expected.name)
 
-        stream = probe(got.name)[0]
+        stream = inspect(got.name)[0]
 
         assert stream.duration * stream.time_base == sum(durations)
 
@@ -65,14 +66,19 @@ def test_concatenate(format_: str, durations: Iterable[float], seed: int) -> Non
 
 def test_issue_manim_slides_390(issues_folder: Path):
     folder = issues_folder.joinpath("manim-slides-390")
-    expected = folder.joinpath("expected.mp4")
+    video_files = [folder.joinpath(f"{i}.mp4").as_posix() for i in range(5)]
 
-    video_files = [folder.joinpath(f"{i}.mp4") for i in range(5)]
+    with tempfile.NamedTemporaryFile(
+        delete=False, suffix=".mp4"
+    ) as got, tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as expected:
+        with pytest.raises(ValueError) as e:
+            concatenate(video_files, got.name)
+            assert (
+                "Application provided invalid, non monotonically increasing dts to muxer in stream 0"
+                in str(e)
+            )
 
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as got:
+        video_files = list(filter_out_no_stream(video_files))
         concatenate(video_files, got.name)
-
-        info = probe(got.name)
-        assert len(info) == 1
-
-        assert_equal_videos(got.name, str(expected))
+        ffmpeg_concatenate(video_files, expected.name)
+        assert_equal_videos(got.name, expected.name)
