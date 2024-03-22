@@ -22,7 +22,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Topic :: Multimedia :: Sound/Audio",
-  "Topic :: Multimedia :: Sound/Audio :: Conuersion",
+  "Topic :: Multimedia :: Sound/Audio :: Conversion",
   "Topic :: Multimedia :: Video",
   "Topic :: Multimedia :: Video :: Conversion",
 ]
