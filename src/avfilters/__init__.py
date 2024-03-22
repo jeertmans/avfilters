@@ -15,7 +15,8 @@ in the
 __all__ = ("__version__", "concatenate", "inspect", "reverse")
 
 
-from .__version__ import __version__
 from .concatenate import concatenate
 from .inspect import inspect
 from .reverse import reverse
+
+__version__ = "0.0.1"

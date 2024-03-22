@@ -56,7 +56,7 @@ test = [
 
 [project.urls]
 Changelog = "https://github.com/jeertmans/avfilters/releases"
-Documentation = "https://eertmans.be/avfilters"
+Documentation = "https://avfilters.readthedocs.io/"
 Founding = "https://github.com/sponsors/jeertmans"
 Homepage = "https://github.com/jeertmans/avfilters"
 Repository = "https://github.com/jeertmans/avfilters"
@@ -98,3 +98,6 @@ isort = {known-first-party = ["avfilters", "tests"]}
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.setuptools.dynamic]
+version = {attr = "avfilters.__version__"}

@@ -14,23 +14,25 @@ concatenation, video reversing or video to GIF.
 
 ## Motivation
 
-FFMPEG is a **powerful** to media files manipulation. Many
-Python libraries alreadt wrap the `ffmpeg` executable to
+FFMPEG is a **powerful** tool for media files manipulation. Many
+Python libraries already wrap the `ffmpeg` executable to
 easily perform audio and video processing in Python.
 
 **However**, most of those libraries call `ffmpeg`
 through *subprocesses*. While this is fine in many
 use cases, this has two major drawbacks:
 
-1. you must have `fmpeg` installed on your computer,
+1. you must have `ffmpeg` installed on your computer,
    and know the executable path;
 2. and repeatedly calling subprocesses in a hot loop can
    be *quite* slow.
 
-For performances reasons, and to not rely on a *possible*
-local installation of `ffmpeg`, a solution is to use
+For performances reasons, a solution is to use
 bindings to the FFMPEG C libraries, e.g.,
-[PyAV](https://github.com/PyAV-Org/PyAV).
+[PyAV](https://github.com/PyAV-Org/PyAV). Moreover,
+PyAV ships (by default) with pre-built binary wheels
+linking against FFMPEG C libraries, so you do not need
+to rely on a *possible* local installation of `ffmpeg`.
 
 Unfortunately, using PyAV can be quite complex,
 especially as `ffmpeg` usually does a lot of
