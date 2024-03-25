@@ -14,12 +14,12 @@ repos:
   - id: pretty-format-toml
     args: [--autofix, --trailing-commas]
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.3.2
+  rev: v0.3.4
   hooks:
   - id: ruff
     args: [--fix]
   - id: ruff-format
 - repo: https://github.com/RobertCraigie/pyright-python
-  rev: v1.1.353
+  rev: v1.1.355
   hooks:
   - id: pyright
