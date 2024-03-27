@@ -13,6 +13,7 @@ Welcome to avfilters' documentation!
    reverse
 
 .. automodule:: avfilters
+   :noindex:
    :members:
 
 .. toctree::

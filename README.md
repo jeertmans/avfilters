@@ -14,7 +14,7 @@ concatenation, video reversing or video to GIF.
 
 ## Motivation
 
-FFMPEG is a **powerful** tool for media files manipulation. Many
+FFmpeg is a **powerful** tool for media files manipulation. Many
 Python libraries already wrap the `ffmpeg` executable to
 easily perform audio and video processing in Python.
 
@@ -28,10 +28,10 @@ use cases, this has two major drawbacks:
    be *quite* slow.
 
 For performances reasons, a solution is to use
-bindings to the FFMPEG C libraries, e.g.,
+bindings to the FFmpeg C libraries, e.g.,
 [PyAV](https://github.com/PyAV-Org/PyAV). Moreover,
 PyAV ships (by default) with pre-built binary wheels
-linking against FFMPEG C libraries, so you do not need
+linking against FFmpeg C libraries, so you do not need
 to rely on a *possible* local installation of `ffmpeg`.
 
 Unfortunately, using PyAV can be quite complex,
