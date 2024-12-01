@@ -53,7 +53,7 @@ jobs:
       run: pytest --cov-report xml --cov=avfilters tests/
 
     - name: Upload to codecov.io
-      uses: codecov/codecov-action@v4.1.0
+      uses: codecov/codecov-action@v4.5.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: jeertmans/avfilters
